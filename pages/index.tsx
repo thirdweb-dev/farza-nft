@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {Box, Button, Heading, Input, useToast} from "@chakra-ui/react";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 const Home: NextPage = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -12,6 +12,8 @@ const Home: NextPage = () => {
     const [openseaUrl, setOpenseaUrl] = useState("");
 
     const toast = useToast();
+
+    const [untilEnd, setUntilEnd] = useState(0);
 
     const mint = useCallback(async () => {
         const response = await fetch('/api/mint', {
@@ -48,6 +50,32 @@ const Home: NextPage = () => {
         setOpenseaUrl(result['openseaUrl']);
     }, [wallet]);
 
+    const displayTime = useCallback((seconds) => {
+            seconds = Number(seconds);
+            var d = Math.floor(seconds / (3600*24));
+            var h = Math.floor(seconds % (3600*24) / 3600);
+            var m = Math.floor(seconds % 3600 / 60);
+            var s = Math.floor(seconds % 60);
+
+            var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+            var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+            var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+            var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+            return dDisplay + hDisplay + mDisplay + sDisplay;
+    }, []);
+
+    useEffect(() => {
+        const endDate = new Date(1637361128);
+        const interval = setInterval(() => {
+            const now = new Date();
+            setUntilEnd(endDate.getTime() - (now.getTime() / 1000));
+        }, 1000);
+
+        return () => {
+            clearInterval(interval);
+        }
+    }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -78,8 +106,10 @@ const Home: NextPage = () => {
                           backgroundColor: "white"
                       }
                   }}>
-                      <Heading size="sm">For a limited time, mint your
+                      <Heading textAlign={'center'} size="sm">For a limited time, mint your
                           own <strong>Farza</strong> NFT (while supplies last)</Heading>
+                      <Heading textAlign={'center'} size="sm">{displayTime(untilEnd)} left</Heading>
+
 
                       <Input mb={2} className={"wallet-input"} mt={8} placeholder="Wallet address" value={wallet} onChange={(e) => setWallet(e.target.value)} />
                       <Button isLoading={isLoading} onClick={async () => {
