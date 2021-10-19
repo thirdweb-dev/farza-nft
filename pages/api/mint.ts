@@ -60,7 +60,13 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
     });
 
     console.log(result.id)
-    const openseaUrl = `https://opensea.io/assets/matic/${NFT_CONTRACT_ADDRESS}/${result.id.toString()}`;
+
+    let openseaPrefix: string = "https://opensea.io/assets/matic/";
+    if (RPC_URL.toLocaleLowerCase().includes("rpc-mumbai.maticvigil.com")) {
+        openseaPrefix = "https://testnets.opensea.io/assets/mumbai/"
+    }
+
+    const openseaUrl = `${openseaPrefix}${NFT_CONTRACT_ADDRESS}/${result.id.toString()}`;
     console.log(openseaUrl);
     return res.status(200).json({
         message: "Your NFT was successfully minted!!",
