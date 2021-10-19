@@ -7,7 +7,7 @@ import {useCallback, useState} from "react";
 
 const Home: NextPage = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [wallet, setWallet] = useState("0x4d36d531D9cB40b8694763123D52170FAE5e1195");
+    const [wallet, setWallet] = useState("");
 
     const [openseaUrl, setOpenseaUrl] = useState("");
 
