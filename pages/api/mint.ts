@@ -24,6 +24,14 @@ const limiter = rateLimit({
 
 
 export default async function mint(req: NextApiRequest, res: NextApiResponse) {
+    const endDate = new Date(1637361128);
+    const now = new Date();
+    if (endDate.getTime() - (now.getTime() / 1000) <= 0) {
+        return res.status(400).json({
+            message: "Sorry you're too late! This drop has ended."
+        });
+    }
+
     try {
         await runMiddleware(req, res, limiter);
     } catch (err) {
@@ -56,7 +64,7 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
 
     const result = await nftModule.mintTo(address, {
         image: "https://nftlabs.mypinata.cloud/ipfs/bafkreigujah2nr7hckyqxvlnllfoxvhopmkawyemb3c2hjg7v2luysh67m",
-        name: "LIMITED EDITION FARTZA",
+        name: "LIMITED EDITION FARZA",
     });
 
     console.log(result.id)
