@@ -125,7 +125,7 @@ const Home: NextPage = () => {
                                     }
                                 }}
                                 mb={2} className={"wallet-input"} mt={8} placeholder="Wallet address" value={wallet} onChange={(e) => setWallet(e.target.value)} />
-                            <Button isLoading={isLoading} onClick={async () => {
+                            <Button colorScheme='green' isLoading={isLoading} onClick={async () => {
                                 setIsLoading(true);
                                 try {
                                     await mint();
