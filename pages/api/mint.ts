@@ -1,6 +1,8 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {NFTLabsSDK} from "@nftlabs/sdk";
 import {ethers} from "ethers";
+import rateLimit from "express-rate-limit";
+import runMiddleware from "../../lib/runMiddleware";
 
 const RPC_URL = process.env.RPC_URL as string;
 const NFT_CONTRACT_ADDRESS = process.env.NFT_CONTRACT_ADDRESS as string;
@@ -14,7 +16,20 @@ const sdk = new NFTLabsSDK(
 
 const nftModule = sdk.getNFTModule(NFT_CONTRACT_ADDRESS);
 
+// can only call once per second
+const limiter = rateLimit({
+    windowMs: 1000,
+    max: 1,
+});
+
+
 export default async function mint(req: NextApiRequest, res: NextApiResponse) {
+    try {
+        await runMiddleware(req, res, limiter);
+    } catch (err) {
+        console.error("Failed to check rate limiting, moving on", err)
+    }
+
     let body: any
 
     try {
@@ -33,11 +48,11 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
     const balance = await nftModule.balanceOf(address)
     console.log("Balance =", balance);
 
-    // if (balance.gt(0)) {
-    //     return res.status(400).json({
-    //         message: "You already minted your limited edition Fartza NFT!"
-    //     });
-    // }
+    if (balance.gt(0)) {
+        return res.status(400).json({
+            message: "You already minted your limited edition Fartza NFT!"
+        });
+    }
 
     const result = await nftModule.mintTo(address, {
         image: "https://nftlabs.mypinata.cloud/ipfs/bafkreigujah2nr7hckyqxvlnllfoxvhopmkawyemb3c2hjg7v2luysh67m",

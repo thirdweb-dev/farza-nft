@@ -51,14 +51,14 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Fartza DOT COM</title>
+        <title>Farza DOT COM</title>
         <meta name="description" content="Come get this sweet sweet NFT" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Box className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <strong>FARTZA DOT COM</strong>
+          Welcome to <strong>FARZA DOT COM</strong>
         </h1>
 
           <Box position="absolute" height={"100vh"} width={"100vw"} zIndex={-1}>
@@ -79,7 +79,7 @@ const Home: NextPage = () => {
                       }
                   }}>
                       <Heading size="sm">For a limited time, mint your
-                          own <strong>Fartza</strong> NFT (while supplies last)</Heading>
+                          own <strong>Farza</strong> NFT (while supplies last)</Heading>
 
                       <Input mb={2} className={"wallet-input"} mt={8} placeholder="Wallet address" value={wallet} onChange={(e) => setWallet(e.target.value)} />
                       <Button isLoading={isLoading} onClick={async () => {
