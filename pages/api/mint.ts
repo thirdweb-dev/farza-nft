@@ -25,7 +25,7 @@ const limiter = rateLimit({
 
 
 export default async function mint(req: NextApiRequest, res: NextApiResponse) {
-    const endDate = new Date(1637361128);
+    const endDate = new Date(1635301825);
     const now = new Date();
     if (endDate.getTime() - (now.getTime() / 1000) <= 0) {
         return res.status(400).json({

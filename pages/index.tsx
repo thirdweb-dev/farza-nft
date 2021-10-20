@@ -65,7 +65,7 @@ const Home: NextPage = () => {
     }, []);
 
     useEffect(() => {
-        const endDate = new Date(1637361128);
+        const endDate = new Date(1635301825);
         const interval = setInterval(() => {
             const now = new Date();
             setUntilEnd(endDate.getTime() - (now.getTime() / 1000));
