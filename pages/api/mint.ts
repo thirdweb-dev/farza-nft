@@ -58,7 +58,7 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
 
     if (balance.gt(0)) {
         return res.status(400).json({
-            message: "You already minted your limited edition Fartza NFT!"
+            message: "You already minted your limited edition Farza NFT!"
         });
     }
 
@@ -67,7 +67,7 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
         name: "LIMITED EDITION FARZA",
     });
 
-    console.log(result.id)
+    console.log(result.id);
 
     let openseaPrefix: string = "https://opensea.io/assets/matic/";
     if (RPC_URL.toLocaleLowerCase().includes("rpc-mumbai.maticvigil.com")) {
