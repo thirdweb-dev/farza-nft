@@ -84,20 +84,17 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Box className={styles.main}>
+            <Box position="absolute" height={"100vh"} width="100vw" zIndex={-1} display="block"
+                 backgroundImage="https://nftlabs.mypinata.cloud/ipfs/bafkreigujah2nr7hckyqxvlnllfoxvhopmkawyemb3c2hjg7v2luysh67m"
+                 backgroundAttachment="scroll"
+                 backgroundRepeat="repeat-x">
+            </Box>
+
+            <Box className={styles.main} width={"100vw"}>
                 <h1 className={styles.title}>
                     Welcome to <strong>FARZA DOT COM</strong>
                 </h1>
 
-                <Box position="absolute" height={"100vh"} width={"100vw"} zIndex={-1}>
-                    <Image
-                        objectFit="cover"
-                        objectPosition="center"
-                        height="2560"
-                        width="1440"
-
-                        src="https://nftlabs.mypinata.cloud/ipfs/bafkreigujah2nr7hckyqxvlnllfoxvhopmkawyemb3c2hjg7v2luysh67m" />
-                </Box>
 
                 {
                     openseaUrl === "" ? (

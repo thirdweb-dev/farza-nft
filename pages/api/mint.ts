@@ -3,6 +3,7 @@ import {NFTLabsSDK} from "@nftlabs/sdk";
 import {ethers} from "ethers";
 import rateLimit from "express-rate-limit";
 import runMiddleware from "../../lib/runMiddleware";
+import cryptoRandomString from 'crypto-random-string';
 
 const RPC_URL = process.env.RPC_URL as string;
 const NFT_CONTRACT_ADDRESS = process.env.NFT_CONTRACT_ADDRESS as string;
@@ -62,9 +63,15 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
         });
     }
 
+    const level = cryptoRandomString({
+        length: Math.ceil(Math.random() * 2), type: "numeric"
+    });
     const result = await nftModule.mintTo(address, {
         image: "https://nftlabs.mypinata.cloud/ipfs/bafkreigujah2nr7hckyqxvlnllfoxvhopmkawyemb3c2hjg7v2luysh67m",
         name: "LIMITED EDITION FARZA",
+        properties: {
+            level
+        }
     });
 
     console.log(result.id);
