@@ -42,7 +42,7 @@ const Home: NextPage = () => {
           p={8}
           cursor="pointer"
           onClick={() => {
-            router.push("/me");
+            router.push("/memberzone");
           }}
         >
           <Heading size="sm">MEMBER ZONE</Heading>
