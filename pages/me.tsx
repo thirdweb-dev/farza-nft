@@ -12,7 +12,7 @@ const NFT_CONTRACT_ADDRESS = process.env
   .NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as string;
 
 export default function Me() {
-  const { account } = useEthers();
+  const { account, chainId } = useEthers();
   const [owned, setOwned] = useState<NFTMetadata[]>();
 
   const sdk = useMemo(() => {
@@ -24,9 +24,8 @@ export default function Me() {
   }, [sdk]);
 
   useEffect(() => {
-    console.log("account = ", account);
     setOwned(undefined);
-  }, [account]);
+  }, [account, chainId]);
 
   useEffect(() => {
     if (owned !== undefined) {
