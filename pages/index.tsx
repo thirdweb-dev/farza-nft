@@ -1,10 +1,9 @@
+import { Box, Heading } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { Box, Button, Heading, Input, useToast } from "@chakra-ui/react";
-import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const [untilEnd, setUntilEnd] = useState(0);
