@@ -114,7 +114,7 @@ export default function Me() {
 
                   {level === undefined ? null : (
                     <Text textAlign="center" fontWeight="black">
-                      Level = {level}
+                      Level {level}
                     </Text>
                   )}
                 </Box>
