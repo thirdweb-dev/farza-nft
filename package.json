@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@andreekeberg/imagedata": "^1.0.2",
     "@chakra-ui/react": "^1.6.10",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@magenta/image": "^0.2.1",
     "@nftlabs/sdk": "^1.0.0",
+    "@tensorflow/tfjs-node": "^3.10.0",
+    "canvas": "^2.8.0",
     "crypto-random-string": "^4.0.0",
     "ethers": "^5.4.7",
     "express-rate-limit": "^5.5.0",
