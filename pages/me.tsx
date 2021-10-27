@@ -40,14 +40,42 @@ export default function Me() {
     })();
   }, [sdk, owned, nftContract, account]);
 
+  if (account === undefined) {
+    return (
+      <Flex flexDir="column" mt={6}>
+        <Header />
+        <Box>
+          <Heading color="black" size="sm" textAlign="center" my={16}>
+            Connect your wallet to verify your NFT ownership.
+          </Heading>
+        </Box>
+      </Flex>
+    );
+  }
+
+  if (account !== undefined && owned !== undefined && owned.length === 0) {
+    return (
+      <Flex flexDir="column" mt={6}>
+        <Header />
+        <Box>
+          <Heading color="black" size="sm" textAlign="center" my={16}>
+            You don&apos;t own a FARZA NYC NFT, are you lost?
+          </Heading>
+        </Box>
+      </Flex>
+    );
+  }
+
   return (
     <Flex flexDir="column" mt={6}>
       <Header />
 
       <Box>
-        <Heading textAlign="center" color="black">
-          Your NFTs
-        </Heading>
+        {owned !== undefined && owned.length > 0 && (
+          <Heading textAlign="center" color="black">
+            Your NFTs
+          </Heading>
+        )}
 
         <Flex justifyContent="center" mt={8}>
           {owned === undefined && <Spinner color="black" size="lg"></Spinner>}
