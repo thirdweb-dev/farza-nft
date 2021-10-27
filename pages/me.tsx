@@ -100,30 +100,32 @@ export default function Me() {
                   height="max-content"
                   borderColor="black"
                   borderWidth="1px"
-                  padding={4}
                   borderRadius="10px"
                   shadow="lg"
                   sx={{
                     ".nft-image": {},
                   }}
                 >
-                  <Text fontWeight="bold" textAlign="center">
-                    {nft.name}
-                  </Text>
-                  <Text textAlign="center" fontWeight="light">
-                    Edition #{nft.id}
-                  </Text>
                   <Image
                     className="nft-image"
                     src={nft.image}
-                    borderRadius="10px"
+                    borderTopRadius="10px"
+                    alt="FARZA NYC NFT"
                   ></Image>
-
-                  {level === undefined ? null : (
-                    <Text textAlign="center" fontWeight="black">
-                      Level {level}
+                  <Box padding={4}>
+                    <Text fontWeight="bold" textAlign="center">
+                      {nft.name}
                     </Text>
-                  )}
+                    <Text textAlign="center" fontWeight="light">
+                      Edition #{nft.id}
+                    </Text>
+
+                    {level === undefined ? null : (
+                      <Text textAlign="center" fontWeight="black">
+                        Level {level}
+                      </Text>
+                    )}
+                  </Box>
                 </Box>
               );
             })}
