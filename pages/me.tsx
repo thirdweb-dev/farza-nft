@@ -103,6 +103,9 @@ export default function Me() {
                   padding={4}
                   borderRadius="10px"
                   shadow="lg"
+                  sx={{
+                    ".nft-image": {},
+                  }}
                 >
                   <Text fontWeight="bold" textAlign="center">
                     {nft.name}
@@ -110,7 +113,11 @@ export default function Me() {
                   <Text textAlign="center" fontWeight="light">
                     Edition #{nft.id}
                   </Text>
-                  <Image src={nft.image} borderRadius="10px"></Image>
+                  <Image
+                    className="nft-image"
+                    src={nft.image}
+                    borderRadius="10px"
+                  ></Image>
 
                   {level === undefined ? null : (
                     <Text textAlign="center" fontWeight="black">
