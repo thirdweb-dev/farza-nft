@@ -55,12 +55,19 @@ export default function Me() {
 
   if (account !== undefined && owned !== undefined && owned.length === 0) {
     return (
-      <Flex flexDir="column" mt={6}>
+      <Flex flexDir="column" mt={6} alignItems="center" flexDirection="column">
         <Header />
         <Box>
-          <Heading color="black" size="sm" textAlign="center" my={16}>
+          <Heading color="black" size="sm" textAlign="center" mt={16} mb={4}>
             You don&apos;t own a FARZA NYC NFT, are you lost?
           </Heading>
+
+          <Image
+            src="/are-you-lost.gif"
+            borderRadius="10px"
+            alt="Are you lost?"
+            height="400"
+          />
         </Box>
       </Flex>
     );

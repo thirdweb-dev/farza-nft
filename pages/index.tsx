@@ -2,25 +2,10 @@ import { Box, Heading } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
-import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-  const [untilEnd, setUntilEnd] = useState(0);
-
   const router = useRouter();
-
-  useEffect(() => {
-    const endDate = new Date(1635301825);
-    const interval = setInterval(() => {
-      const now = new Date();
-      setUntilEnd(endDate.getTime() - now.getTime() / 1000);
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -45,6 +30,10 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <strong>FARZA DOT COM</strong>
         </h1>
+
+        <Heading textAlign={"center"} size="sm" my={4}>
+          The drop is over! Hope you got your Farza!
+        </Heading>
 
         <Box
           position="absolute"
