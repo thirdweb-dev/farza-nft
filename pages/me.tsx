@@ -84,7 +84,7 @@ export default function Me() {
             owned.map((nft) => {
               let level = undefined;
               if (nft.properties !== undefined && "level" in nft.properties) {
-                level = parseInt(nft.properties["level"], 10);
+                level = parseInt(nft.properties["level"] as string, 10);
               }
 
               return (
