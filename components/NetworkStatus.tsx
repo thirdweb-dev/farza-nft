@@ -153,7 +153,13 @@ export const NetworkStatus: React.FC<INetworkStatus> = ({ dropdown }) => {
         />
       </PopoverTrigger>
       <PopoverContent>
-        <PopoverHeader as={Heading} size="md" fontWeight="semibold">
+        <PopoverHeader
+          as={Heading}
+          size="md"
+          fontWeight="semibold"
+          color="black"
+          textAlign="center"
+        >
           Switch Network
         </PopoverHeader>
         <PopoverArrow />
