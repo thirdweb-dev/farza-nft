@@ -1,25 +1,25 @@
-import { useRouter } from "next/dist/client/router";
-import { Flex, Heading, Text } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useState } from "react";
-import Header from "../../components/layout/Header";
-import { NFTLabsSDK, NFTMetadata, NotFoundError } from "@nftlabs/sdk";
+import { Button, Flex, Heading, Skeleton, Spinner } from "@chakra-ui/react";
+import { NFTLabsSDK, NFTMetadata } from "@nftlabs/sdk";
 import { ethers } from "ethers";
+import { useRouter } from "next/dist/client/router";
+import React, { useEffect, useMemo, useState } from "react";
 import Farza from "../../components/farza";
-import { useEthers } from "@usedapp/core";
+import Header from "../../components/layout/Header";
+import useOwnedNfts from "../../hooks/useOwnedNfts";
 
 const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL as string;
 const NFT_CONTRACT_ADDRESS = process.env
   .NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as string;
 
 export default function MyNft() {
-  const { account, chainId } = useEthers();
   const router = useRouter();
   const { id } = router.query;
 
   const [nft, setNft] = useState<NFTMetadata>();
   const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState(true);
 
-  const [owned, setOwned] = useState<NFTMetadata[]>();
+  const { ownedNfts } = useOwnedNfts();
 
   const sdk = useMemo(() => {
     return new NFTLabsSDK(ethers.getDefaultProvider(RPC_URL));
@@ -29,17 +29,7 @@ export default function MyNft() {
     return sdk.getNFTModule(NFT_CONTRACT_ADDRESS);
   }, [sdk]);
 
-  useEffect(() => {
-    if (owned !== undefined) {
-      return;
-    }
-
-    (async () => {
-      const mine = await nftContract.getOwned(account as string);
-      console.log(mine);
-      setOwned(mine);
-    })();
-  }, [sdk, owned, nftContract, account]);
+  const isOwner = ownedNfts?.some((n) => n.id === id);
 
   useEffect(() => {
     if (nft !== undefined || !id) {
@@ -62,12 +52,16 @@ export default function MyNft() {
           );
         }
       }
+      setLoading(false);
     })();
   }, [sdk, nftContract, router]);
 
   return (
     <Flex flexDir="column" mt={6}>
       <Header />
+
+      {loading && <Spinner mt={8} alignSelf="center" color="black" size="lg" />}
+
       {error !== undefined && (
         <Heading size="lg" textAlign="center" color="black" mt={16}>
           {error}
@@ -75,12 +69,18 @@ export default function MyNft() {
       )}
 
       <Flex flexDir="column" align="center" mt={8}>
-        {owned?.some((n) => n.id === id) && (
+        {isOwner && (
           <Heading color="black" size="sm">
             You own this NFT
           </Heading>
         )}
         {nft && <Farza nft={nft}></Farza>}
+
+        {nft && ownedNfts && !isOwner && (
+          <Button mt={8} textTransform="capitalize" colorScheme="orange">
+            Breed
+          </Button>
+        )}
       </Flex>
     </Flex>
   );
