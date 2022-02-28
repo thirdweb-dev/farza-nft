@@ -1,4 +1,4 @@
-import { NFTLabsSDK, NFTMetadata } from "@nftlabs/sdk";
+import { NFTLabsSDK, NFTMetadata } from "@3rdweb/sdk";
 import { useEthers } from "@usedapp/core";
 import { ethers } from "ethers";
 import { useEffect, useMemo, useState } from "react";
